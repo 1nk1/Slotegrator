@@ -1,0 +1,10 @@
+interfaces/IMainPage.class
+libs/ConfigProperties.class
+libs/ActionsWithElements.class
+pages/MainPage.class
+pages/ParentPage.class
+libs/Generate.class
+models/PlayerModel.class
+models/TokenDataModel.class
+interfaces/IAuthorizePage.class
+pages/AuthPage.class

@@ -1,0 +1,7 @@
+UITests/SortColumnTest.class
+APITests/ApiTest.class
+UITests/AuthorizeTest.class
+UITests/BaseTest.class
+Suit/SmokeSuit.class
+UITests/OpenPlayersListTest.class
+APITests/BaseApiTest.class
