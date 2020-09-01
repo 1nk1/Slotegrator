@@ -1,16 +1,15 @@
-# Slotegrator
+# Slotegrator 
 
 ### Installation :point_down:
 
- - **`Java JDK 1.8.0_221`** <br>
- - **`maven 3.0` <b>(_if you want to run tests from Console_)</b>** <br>
- - **`IntelliJ IDEA`**
+ - **`Java JDK => 1.8.0_221`** <br>
+ - **`maven => 3.0` <b>(_if you want to run tests from Console_)</b>** <br>
+ - **`IntelliJ IDEA => 2020.2`**
 
 ### Clone :zap:
 
 
-Clone this repo to your local machine using: ->
-
+Clone this repo to your local machine using: -> :eyes:
 
 ```
 git clone https://github.com/1nk1/Slotegrator.git
