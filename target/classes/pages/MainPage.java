@@ -18,13 +18,13 @@ public class MainPage extends ParentPage implements IMainPage {
     @FindBy(xpath = "//a[@data-toggle='dropdown']/span") private WebElement userNameAdminPanel;
     @FindBy(xpath = "//a[@href='/user/player/admin']") private WebElement playersLeftSideBar;
 
-    public boolean existAdminPanel() { return actionsWithElements.isElementDisplayed(adminPanel); }
-    private void clickUsers() { actionsWithElements.clickOnElement(userNameLeftSideBar); }
-    private void clickPlayers() { actionsWithElements.clickOnElement(playersLeftSideBar); }
-    public boolean existPlayersGrid() { return actionsWithElements.isElementDisplayed(playerGrid); }
-    public void selectCountUsers(int count) throws InterruptedException { actionsWithElements.selectValueInDDByJava(countOfPlayers, Integer.toString(count)); actionsWithElements.waitForLoadingGrid();}
-    public void clickUserNameSort() throws InterruptedException { actionsWithElements.clickOnElement(userNameSortLink); actionsWithElements.waitForLoadingGrid(); }
-    public List<String> getList() { return actionsWithElements.getList();}
+    public boolean existAdminPanel() { return adminPanel.isDisplayed(); }
+    private void clickUsers() { _el.click(userNameLeftSideBar); }
+    private void clickPlayers() { _el.click(playersLeftSideBar); }
+    public boolean existPlayersGrid() { return playerGrid.isDisplayed(); }
+    public void selectCountUsers(int count) throws InterruptedException { _el.selectDropDown(countOfPlayers, Integer.toString(count)); _el.waitForLoadingGrid();}
+    public void clickUserNameSort() throws InterruptedException { _el.click(userNameSortLink); _el.waitForLoadingGrid(); }
+    public List<String> getList() { return _el.getList();}
 
     public void openPlayerList() {
         checkCurrentUrl(confProp.BASE_URL() + "/configurator/dashboard/index");

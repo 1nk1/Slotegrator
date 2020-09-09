@@ -13,9 +13,9 @@ public class AuthPage extends ParentPage implements IAuthorizePage {
 
     public AuthPage(WebDriver _driver) { super(_driver); }
 
-    private void enterLoginIntoInputLogin(String login) { actionsWithElements.enterTextIntoInput(inputLogin, login); }
-    private void enterPassIntoInputPassword(String password) { actionsWithElements.enterTextIntoInput(inputPass, password); }
-    private void clickButtonSignIn() { actionsWithElements.clickOnElement(inputSignIn); }
+    private void enterLoginIntoInputLogin(String login) { _el.enterText(inputLogin, login); }
+    private void enterPassIntoInputPassword(String password) { _el.enterText(inputPass, password); }
+    private void clickButtonSignIn() { _el.click(inputSignIn); }
 
     public void authorize(String login, String password) {
         openPage("/admin/login");

@@ -1,7 +1,7 @@
 package pages;
 
-import libs.ActionsWithElements;
 import libs.ConfigProperties;
+import libs.Elements;
 import org.aeonbits.owner.ConfigFactory;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
@@ -12,13 +12,13 @@ import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementLocatorFactory
 
 public abstract class ParentPage {
     protected WebDriver _driver;
-    protected ActionsWithElements actionsWithElements;
+    protected Elements _el;
     public static ConfigProperties confProp = ConfigFactory.create(ConfigProperties.class);
     protected Logger logger = Logger.getLogger(getClass());
 
     public ParentPage(WebDriver webDriver) {
         _driver = webDriver;
-        actionsWithElements = new ActionsWithElements(_driver);
+        _el = new Elements(_driver);
         PageFactory.initElements(new HtmlElementDecorator(new HtmlElementLocatorFactory(_driver)), this);
     }
     public String getCurrentUrl() { return _driver.getCurrentUrl(); }

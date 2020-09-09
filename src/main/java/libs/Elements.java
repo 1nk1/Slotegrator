@@ -1,43 +1,46 @@
 package libs;
 
+import interfaces.IElement;
 import org.aeonbits.owner.ConfigFactory;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class ActionsWithElements {
+public class Elements implements IElement {
     WebDriver _driver;
-    WebDriverWait webDriverWait_3, webDriverWait_5, webDriverWait_10, webDriverWait_15;
+    WebDriverWait wait_3, wait_5, wait_10, wait_15;
     ConfigProperties confProp = ConfigFactory.create(ConfigProperties.class);
     Logger logger = Logger.getLogger(getClass());
 
-    public ActionsWithElements(WebDriver webDriver) {
-
+    public Elements(WebDriver webDriver){
         _driver = webDriver;
-        webDriverWait_3 = new WebDriverWait(_driver, confProp.IMPLICITLY_WAIT());
-        webDriverWait_5 = new WebDriverWait(_driver, confProp.TIME_FOR_EXPLICIT_WAIT_MIDDLE());
-        webDriverWait_10 = new WebDriverWait(_driver, confProp.TIME_FOR_EXPLICIT_WAIT_LOW());
-        webDriverWait_15 = new WebDriverWait(_driver, confProp.TIME_FOR_EXPLICIT_WAIT_HIGH());
+        wait_3 = new WebDriverWait(_driver, confProp.IMPLICITLY_WAIT());
+        wait_5 = new WebDriverWait(_driver, confProp.TIME_FOR_EXPLICIT_WAIT_MIDDLE());
+        wait_10 = new WebDriverWait(_driver, confProp.TIME_FOR_EXPLICIT_WAIT_LOW());
+        wait_15 = new WebDriverWait(_driver, confProp.TIME_FOR_EXPLICIT_WAIT_HIGH());
     }
 
-    public void enterTextIntoInput(WebElement webElement, String text) {
+    public IElement enterText(WebElement webElement, String text) {
         try {
             webElement.clear();
             webElement.sendKeys(text);
         } catch (Exception exc) {
             stopTestAndPrintMessage(webElement);
         }
+        return this;
     }
 
-    public void clickOnElement(WebElement webElement) {
+    public void click(WebElement webElement) {
         try {
-            webDriverWait_3.until(ExpectedConditions.elementToBeClickable(webElement));
+            wait_3.until(ExpectedConditions.elementToBeClickable(webElement));
             webElement.click();
             logger.info("Click element: -> " + webElement);
         } catch (Exception exc) {
@@ -45,33 +48,33 @@ public class ActionsWithElements {
         }
     }
 
-    public boolean isElementDisplayed(WebElement webElement) {
+    public IElement isDisplayed(WebElement webElement) {
         try {
-            return webElement.isDisplayed();
+            webElement.isDisplayed();
         } catch (Exception exc) {
             exc.getStackTrace();
-            return false;
         }
+        return this;
     }
 
     private void stopTestAndPrintMessage(WebElement element) {
         Assert.fail("We can't work this element -> " + element);
     }
 
-    public void selectValueInDDByJava(WebElement dropDown, String value) {
+    public IElement selectDropDown(WebElement dropDown, String value) {
         try {
             Select select = new Select(dropDown);
             select.selectByValue(value);
         } catch (Exception exc) {
             stopTestAndPrintMessage(dropDown);
         }
+        return this;
     }
 
     public List<String> getList() {
-        List<String> arrayList = new ArrayList<>();
-        List<WebElement> listOfElements = _driver.findElements(By.xpath("//a[contains(@href, '/user/player/details?id=') and not (@title='Details')]"));
-        for (WebElement element : listOfElements)
-            arrayList.add(element.getText());
+        List<String> arrayList;
+        List<WebElement> elements = _driver.findElements(By.xpath("//a[contains(@href, '/user/player/details?id=') and not (@title='Details')]"));
+        arrayList = elements.stream().map(WebElement::getText).collect(Collectors.toList());
         return arrayList;
     }
 
